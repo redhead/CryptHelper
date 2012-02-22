@@ -1,8 +1,8 @@
 /*
  */
-package kbe.ui;
+package cz.cvut.kbe.crypthelper.ui;
 
-import kbe.CharMap.CharEntry;
+import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
 
 
 /**

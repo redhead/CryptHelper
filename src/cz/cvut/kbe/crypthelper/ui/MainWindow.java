@@ -1,6 +1,6 @@
 /*
  */
-package kbe.ui;
+package cz.cvut.kbe.crypthelper.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,8 +9,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import kbe.CharMap;
-import kbe.CharMap.CharEntry;
+import cz.cvut.kbe.crypthelper.CharMap;
+import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

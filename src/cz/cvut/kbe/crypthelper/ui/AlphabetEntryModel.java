@@ -1,6 +1,6 @@
 /*
  */
-package kbe.ui;
+package cz.cvut.kbe.crypthelper.ui;
 
 
 /**

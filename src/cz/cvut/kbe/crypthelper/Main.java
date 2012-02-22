@@ -1,4 +1,4 @@
-package kbe;
+package cz.cvut.kbe.crypthelper;
 
 import javax.swing.UIManager;
 
@@ -6,7 +6,7 @@ import javax.swing.UIManager;
 /**
  * @author Radek Ježdík
  */
-public class KBE {
+public class Main {
 
 	public static void main(String[] args) {
 		try {

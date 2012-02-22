@@ -1,6 +1,6 @@
 /*
  */
-package kbe;
+package cz.cvut.kbe.crypthelper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,9 +9,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import kbe.CharMap.CharEntry;
-import kbe.ui.CharacterTableModel;
-import kbe.ui.MainWindow;
+import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
+import cz.cvut.kbe.crypthelper.ui.CharacterTableModel;
+import cz.cvut.kbe.crypthelper.ui.MainWindow;
 
 
 /**

@@ -1,9 +1,9 @@
 /*
  */
-package kbe.ui;
+package cz.cvut.kbe.crypthelper.ui;
 
 import javax.swing.table.AbstractTableModel;
-import kbe.CharMap.CharEntry;
+import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
 
 
 /**
