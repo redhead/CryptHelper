@@ -63,6 +63,8 @@ public class MainWindow extends javax.swing.JFrame {
 		styleChart(chart);
 
 		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setMaximumDrawHeight(800);
+		chartPanel.setMaximumDrawHeight(600);
 		graphPanel.removeAll();
 		graphPanel.add(chartPanel, BorderLayout.CENTER);
 		graphPanel.updateUI();
