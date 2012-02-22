@@ -81,6 +81,8 @@ public class MainWindow extends javax.swing.JFrame {
 
 		offsetSlider.setVisible(false);
 		bottomPanel.setVisible(false);
+		
+		coincidenceIndexLabel.setText("");
 	}
 
 
@@ -146,6 +148,8 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         inputText = new javax.swing.JTextArea();
         processButton = new javax.swing.JButton();
+        coincidenceIndexLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         bottomPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         charTable = new javax.swing.JTable();
@@ -157,7 +161,6 @@ public class MainWindow extends javax.swing.JFrame {
         englishAlphaOption = new javax.swing.JRadioButton();
         noAlphaOption = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        indexButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptHelper");
@@ -168,7 +171,12 @@ public class MainWindow extends javax.swing.JFrame {
         inputText.setRows(5);
         jScrollPane1.setViewportView(inputText);
 
-        processButton.setText("Zpracuj");
+        processButton.setText("Analyzovat");
+
+        coincidenceIndexLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        coincidenceIndexLabel.setText("coincidenceIndexLabel");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
         charTable.setAutoCreateRowSorter(true);
         charTable.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
@@ -205,11 +213,11 @@ public class MainWindow extends javax.swing.JFrame {
         graphPanel.setLayout(graphPanelLayout);
         graphPanelLayout.setHorizontalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         graphPanelLayout.setVerticalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 244, Short.MAX_VALUE)
+            .addGap(0, 206, Short.MAX_VALUE)
         );
 
         offsetSlider.setMajorTickSpacing(1);
@@ -246,40 +254,54 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(offsetSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                    .addComponent(offsetSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bottomPanelLayout.createSequentialGroup()
-                        .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bottomPanelLayout.createSequentialGroup()
-                                .addComponent(noAlphaOption)
-                                .addGap(18, 18, 18)
-                                .addComponent(englishAlphaOption)
-                                .addGap(18, 18, 18)
-                                .addComponent(czechAlphaOption))
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(noAlphaOption)
+                        .addGap(18, 18, 18)
+                        .addComponent(englishAlphaOption)
+                        .addGap(18, 18, 18)
+                        .addComponent(czechAlphaOption)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         bottomPanelLayout.setVerticalGroup(
             bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottomPanelLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(noAlphaOption)
-                    .addComponent(englishAlphaOption)
-                    .addComponent(czechAlphaOption))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(offsetSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(bottomPanelLayout.createSequentialGroup()
                 .addComponent(percentOption)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(perCountOption)
+                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(perCountOption)
+                    .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(noAlphaOption)
+                        .addComponent(englishAlphaOption)
+                        .addComponent(czechAlphaOption)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bottomPanelLayout.createSequentialGroup()
+                        .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(offsetSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
-        indexButton.setText("Index koincidence");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -291,10 +313,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(processButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(indexButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(coincidenceIndexLabel))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -305,9 +326,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(processButton)
-                    .addComponent(indexButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(coincidenceIndexLabel))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -319,12 +340,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel bottomPanel;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JTable charTable;
+    private javax.swing.JLabel coincidenceIndexLabel;
     private javax.swing.JRadioButton czechAlphaOption;
     private javax.swing.JRadioButton englishAlphaOption;
     private javax.swing.JPanel graphPanel;
-    private javax.swing.JButton indexButton;
     private javax.swing.JTextArea inputText;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton noAlphaOption;
@@ -380,11 +402,6 @@ public class MainWindow extends javax.swing.JFrame {
 	}
 
 
-	public JButton getIndexButton() {
-		return indexButton;
-	}
-
-
 	public void setTableModel(CharacterTableModel tableModel) {
 		charTable.setModel(tableModel);
 
@@ -410,6 +427,11 @@ public class MainWindow extends javax.swing.JFrame {
 			alphaEntryModel.setOffset(value);
 			setChartData();
 		}
+	}
+
+
+	public void setIndexOfCoincidence(double index) {
+		coincidenceIndexLabel.setText("Index koincidence: " + index);
 	}
 
 

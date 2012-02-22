@@ -37,7 +37,6 @@ import cz.cvut.kbe.crypthelper.ui.CharacterTableModel;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
@@ -69,7 +68,6 @@ class MainController {
 		window.getCharTable().getModel().addTableModelListener(new TableListener());
 
 		window.getProcessButton().addActionListener(new ProcessButtonListener());
-		window.getIndexButton().addActionListener(new IndexButtonListener());
 
 		window.getPercentOption().addChangeListener(new ViewChangeListener());
 		window.getPerCountOption().addChangeListener(new ViewChangeListener());
@@ -81,12 +79,8 @@ class MainController {
 	private void processText() {
 		CharMap map = getMap();
 		CharEntry[] entries = map.getEntries();
-		setData(entries);
-	}
-
-
-	private void setData(CharEntry[] entries) {
 		tableModel.setData(entries);
+		window.setIndexOfCoincidence(map.getIndexOfCoincidence());
 	}
 
 
@@ -107,18 +101,6 @@ class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			processText();
-		}
-
-	}
-
-
-	private class IndexButtonListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			CharMap map = getMap();
-			double index = map.getIndexOfCoincidence();
-			JOptionPane.showMessageDialog(window, "IC = " + index);
 		}
 
 	}
