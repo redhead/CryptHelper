@@ -10,3 +10,7 @@ It can:
 	- show a graph chart rendering the frequencies
 	- add English or Czech character frequencies next to the text frequencies
 	- offset the English/Czech character frequencies to ease discovering 'shift ciphers'
+
+Requirements
+------------
+Java Environment 7 (JRE 7)
