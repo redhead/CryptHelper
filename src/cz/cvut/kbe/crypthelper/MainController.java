@@ -56,6 +56,7 @@ class MainController {
 
 	public MainController() {
 		window = new MainWindow();
+		new MainMenuController(window);
 
 		tableModel = new CharacterTableModel();
 		window.setTableModel(tableModel);

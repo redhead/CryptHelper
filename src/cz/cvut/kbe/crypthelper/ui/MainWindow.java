@@ -81,7 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 		offsetSlider.setVisible(false);
 		bottomPanel.setVisible(false);
-		
+
 		coincidenceIndexLabel.setText("");
 	}
 
@@ -161,6 +161,9 @@ public class MainWindow extends javax.swing.JFrame {
         englishAlphaOption = new javax.swing.JRadioButton();
         noAlphaOption = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        manualDecryptionMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptHelper");
@@ -217,7 +220,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         graphPanelLayout.setVerticalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
+            .addGap(0, 185, Short.MAX_VALUE)
         );
 
         offsetSlider.setMajorTickSpacing(1);
@@ -270,13 +273,13 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(bottomPanelLayout.createSequentialGroup()
                 .addComponent(percentOption)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(perCountOption)
+                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(noAlphaOption)
                         .addComponent(englishAlphaOption)
-                        .addComponent(czechAlphaOption)))
+                        .addComponent(czechAlphaOption))
+                    .addComponent(perCountOption))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bottomPanelLayout.createSequentialGroup()
@@ -302,6 +305,15 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jMenu1.setText("Nástroje");
+
+        manualDecryptionMenuItem.setText("Ruční dešifrování");
+        jMenu1.add(manualDecryptionMenuItem);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -346,9 +358,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel graphPanel;
     private javax.swing.JTextArea inputText;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenuItem manualDecryptionMenuItem;
     private javax.swing.JRadioButton noAlphaOption;
     private javax.swing.JSlider offsetSlider;
     private javax.swing.JRadioButton perCountOption;
@@ -474,6 +489,11 @@ public class MainWindow extends javax.swing.JFrame {
 			return model;
 		}
 
+	}
+
+
+	public JMenuItem getManualDecryptionMenuItem() {
+		return manualDecryptionMenuItem;
 	}
 
 }
