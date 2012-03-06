@@ -89,7 +89,7 @@ public class MainWindow extends javax.swing.JFrame {
 	public void setChartData() {
 		CategoryDataset dataset = getDataset();
 
-		chart = ChartFactory.createBarChart("Četnost znaků", "Znak", "Četnost (%)",
+		chart = ChartFactory.createLineChart("Četnost znaků", "Znak", "Četnost (%)",
 				dataset, PlotOrientation.VERTICAL, false, false, false);
 
 		styleChart(chart);
@@ -224,8 +224,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         offsetSlider.setMajorTickSpacing(1);
-        offsetSlider.setMaximum(13);
-        offsetSlider.setMinimum(-12);
+        offsetSlider.setMaximum(25);
         offsetSlider.setMinorTickSpacing(1);
         offsetSlider.setPaintLabels(true);
         offsetSlider.setPaintTicks(true);
