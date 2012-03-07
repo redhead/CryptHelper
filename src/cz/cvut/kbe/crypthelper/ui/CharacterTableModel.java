@@ -46,6 +46,8 @@ public class CharacterTableModel extends AbstractTableModel implements AlphabetE
 
 	private boolean percentView = true;
 
+	private int offset;
+
 
 	public void setData(CharEntry[] entries) {
 		this.entries = entries;
@@ -109,25 +111,32 @@ public class CharacterTableModel extends AbstractTableModel implements AlphabetE
 
 	@Override
 	public double getFrequency(int i) {
-		return entries[i].frequency;
+		return entries[getIndex(i)].frequency;
 	}
 
 
 	@Override
 	public Character getCharacter(int i) {
-		return entries[i].character;
+		return entries[getIndex(i)].character;
+	}
+
+
+	private int getIndex(int n) {
+		int i = (n + offset) % entries.length;
+		if(i < 0) i += entries.length;
+		return i;
 	}
 
 
 	@Override
 	public void setOffset(int n) {
-		throw new UnsupportedOperationException("Not supported");
+		offset = n;
 	}
 
 
 	@Override
 	public int getOffset() {
-		throw new UnsupportedOperationException("Not supported");
+		return offset;
 	}
 
 }

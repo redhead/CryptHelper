@@ -60,6 +60,8 @@ public class MainWindow extends javax.swing.JFrame {
 
 	private AlphabetEntryModel alphaEntryModel;
 
+	private CharacterTableModel tableModel;
+
 
 	public MainWindow() {
 		initComponents();
@@ -106,16 +108,16 @@ public class MainWindow extends javax.swing.JFrame {
 
 
 	private CategoryDataset getDataset() {
-		AlphabetEntryModel model = (AlphabetEntryModel) charTable.getModel();
-
-		if(model.size() == 0) return null;
+		if(tableModel.size() == 0) return null;
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		for(int i = 0; i < model.size(); i++) {
-			double freq = model.getFrequency(i);
-			String str = model.getCharacter(i) + "";
+
+		for(int i = 0; i < tableModel.size(); i++) {
+			double freq = tableModel.getFrequency(i);
+			String str = tableModel.getCharacter(i) + "";
+
 			if(alphaEntryModel != null) {
-				str = ((char) ('A' + i)) + "" + alphaEntryModel.getCharacter(i);
+				str += alphaEntryModel.getCharacter(i);
 			}
 			dataset.addValue(freq, "Četnost", str);
 			if(alphaEntryModel != null) {
@@ -216,7 +218,7 @@ public class MainWindow extends javax.swing.JFrame {
         graphPanel.setLayout(graphPanelLayout);
         graphPanelLayout.setHorizontalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
         graphPanelLayout.setVerticalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,6 +419,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 
 	public void setTableModel(CharacterTableModel tableModel) {
+		this.tableModel = tableModel;
 		charTable.setModel(tableModel);
 
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer() {
@@ -438,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 	public void setOffset(int value) {
 		if(alphaEntryModel != null) {
-			alphaEntryModel.setOffset(value);
+			tableModel.setOffset(value);
 			setChartData();
 		}
 	}
@@ -457,12 +460,13 @@ public class MainWindow extends javax.swing.JFrame {
 				alphaEntryModel = null;
 				offsetSlider.setVisible(false);
 			} else {
+				CharEntry[] entries;
 				if(englishAlphaOption.isSelected()) {
-					alphaEntryModel = Alphabet.ENGLISH.getModel();
+					entries = CharMap.getEnglishEntries();
 				} else {
-					alphaEntryModel = Alphabet.CZECH.getModel();
+					entries = CharMap.getCzechEntries();
 				}
-				alphaEntryModel.setOffset(offsetSlider.getValue());
+				alphaEntryModel = new DefaultAlphabetEntryModel(entries);
 				offsetSlider.setVisible(true);
 			}
 			setChartData();
