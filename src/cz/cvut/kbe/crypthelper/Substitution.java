@@ -32,63 +32,48 @@
  */
 package cz.cvut.kbe.crypthelper;
 
-import cz.cvut.kbe.crypthelper.ui.MainWindow;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
  *
  * @author Radek Ježdík <jezdik.radek@gmail.com>
  */
-class MainMenuController {
+class Substitution {
 
-	private MainController controller;
+	private String text;
+
+	private Map<Character, Character> map = new TreeMap<>();
 
 
-	MainMenuController(MainController controller) {
-		this.controller = controller;
-		setupListeners();
+	public Substitution(String text) {
+		this.text = text;
 	}
 
 
-	private void setupListeners() {
-		final MainWindow window = controller.getWindow();
+	public void setText(String text) {
+		this.text = text;
+	}
 
-		window.getNewTabMenuItem().addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.createTab();
+	public void set(char from, char to) {
+		map.put(from, to);
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		for(int i = 0; i < text.length(); i++) {
+			char c = Character.toUpperCase(text.charAt(i));
+			if(map.containsKey(c)) {
+				c = map.get(c);
 			}
-
-		});
-		window.getManualDecryptionMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String text = controller.getView().getInputText().getText();
-				new SubstitutionController(text);
-			}
-
-		});
-		window.getSplitMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.splitText();
-			}
-
-		});
-		window.getMergeMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.mergeText();
-			}
-
-		});
+			sb.append(c);
+		}
+		return sb.toString();
 	}
 
 }

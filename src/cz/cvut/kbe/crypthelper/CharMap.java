@@ -124,34 +124,6 @@ public class CharMap {
 	}
 
 
-	public static CharMap.CharEntry[] getEnglishEntries() {
-		int[] alpha = new int[] {
-			834, 154, 273, 414, 1260, 203, 192, 611, 671, 23, 87, 424, 253,
-			680, 770, 166, 9, 568, 611, 937, 258, 106, 234, 20, 204, 6
-		};
-		return toEntries(alpha, 9968);
-	}
-
-
-	public static CharMap.CharEntry[] getCzechEntries() {
-		int[] alpha = new int[] {
-			7502, 1627, 2434, 3336, 9827, 173, 307, 2511, 5328, 2170, 2242, 4264, 3178,
-			5363, 6730, 2079, 0, 3689, 4272, 4601, 2721, 2845, 2, 6, 2149, 2092
-		};
-		return toEntries(alpha, 81448);
-	}
-
-
-	private static CharEntry[] toEntries(int[] alpha, int count) {
-		CharEntry[] entries = new CharEntry[26];
-		for(int i = 0; i < 26; i++) {
-			double freq = formatDouble(alpha[i] * 100 / (double) count);
-			entries[i] = new CharEntry((char) ('A' + i), alpha[i], freq);
-		}
-		return entries;
-	}
-
-
 	public static class CharEntry {
 
 		public Character character;

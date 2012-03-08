@@ -32,110 +32,126 @@
  */
 package cz.cvut.kbe.crypthelper;
 
-import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
-import cz.cvut.kbe.crypthelper.ui.CharacterTableModel;
+import cz.cvut.kbe.crypthelper.ui.MainPanel;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import java.awt.ScrollPane;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 
 /**
  *
- * @author Radek Ježdík
+ * @author Radek Ježdík <jezdik.radek@gmail.com>
  */
-class MainController {
+public class MainController {
 
 	private MainWindow window;
 
-	private CharacterTableModel tableModel;
+	private int actual;
 
 
 	public MainController() {
 		window = new MainWindow();
-		new MainMenuController(window);
+		new MainMenuController(this);
 
-		tableModel = new CharacterTableModel();
-		window.setTableModel(tableModel);
-
-		setupListeners();
 	}
 
 
-	private void setupListeners() {
-		window.getCharTable().getModel().addTableModelListener(new TableListener());
-
-		window.getProcessButton().addActionListener(new ProcessButtonListener());
-
-		window.getPercentOption().addChangeListener(new ViewChangeListener());
-		window.getPerCountOption().addChangeListener(new ViewChangeListener());
-
-		window.getOffsetSlider().addChangeListener(new OffsetChangeListener());
-	}
-
-
-	private void processText() {
-		CharMap map = getMap();
-		CharEntry[] entries = map.getEntries();
-		tableModel.setData(entries);
-		window.setIndexOfCoincidence(map.getIndexOfCoincidence());
-	}
-
-
-	void run() {
+	public void run() {
 		window.setVisible(true);
 		window.setLocationRelativeTo(null);
+		window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}
 
 
-	private CharMap getMap() {
-		String inputText = window.getInputText().getText();
-		return CharMap.fromString(inputText);
+	public void splitText() {
+		String str = JOptionPane.showInputDialog(window, "Na kolik částí chcete text rozdělit?");
+		try {
+			int x = Integer.parseInt(str);
+			String[] splits = new String[x];
+
+			String text = getView().getInputText().getText();
+
+			for(int i = 0, j = 0; i < text.length(); i++) {
+				char c = Character.toUpperCase(text.charAt(i));
+				if(c >= 'A' && c <= 'Z') {
+					String splt = splits[j % x];
+					if(splt == null) splt = "";
+
+					splits[j % x] = splt + c;
+					j++;
+				}
+			}
+
+			String title = getViewTitle();
+			for(int i = 0; i < x; i++) {
+				String tabTitle = title + "." + (i + 1);
+				MainPanel panel = createTab(tabTitle, true);
+				panel.getInputText().setText(splits[i]);
+				panel.getController().alphaOptionChanged((String) getView().getAlphabetSelect().getSelectedItem());
+				panel.getController().processText();
+			}
+		} catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(window, "Nebylo zadáno celé číslo.", "Chyba", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 
-	private class ProcessButtonListener implements ActionListener {
+	public void mergeText() {
+		List<String> splits = new ArrayList<>();
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			processText();
+		String title = window.getViewTitle();
+		for(int i = 0;; i++) {
+			String tabTitle = title + "." + (i + 1);
+			MainPanel panel = window.getView(tabTitle);
+			if(panel == null) break;
+
+			String text = panel.getSubstitutedText();
+			splits.add(text);
 		}
 
+		if(splits.isEmpty()) return;
+
+		String merge = "";
+		for(int i = 0; i < splits.get(0).length(); i++) {
+			for(int j = 0; j < splits.size(); j++) {
+				merge += splits.get(j).charAt(i);
+			}
+		}
+		JOptionPane.showMessageDialog(window, merge);
 	}
 
 
-	private class ViewChangeListener implements ChangeListener {
-
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			boolean percent = window.getPercentOption().isSelected();
-			tableModel.setPercentView(percent);
-		}
-
+	public MainWindow getWindow() {
+		return window;
 	}
 
 
-	private class TableListener implements TableModelListener {
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			window.setChartData();
-		}
-
+	public MainPanel getView() {
+		return window.getView();
 	}
 
 
-	private class OffsetChangeListener implements ChangeListener {
+	public String getViewTitle() {
+		return window.getViewTitle();
+	}
 
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			int value = window.getOffsetSlider().getValue();
-			window.setOffset(value);
-		}
 
+	public MainPanel createTab() {
+		return createTab(null, false);
+	}
+
+
+	private MainPanel createTab(String title, boolean unmergable) {
+		return window.createTab(title, unmergable);
+	}
+
+
+	public MainPanelController getViewController() {
+		return getView().getController();
 	}
 
 }

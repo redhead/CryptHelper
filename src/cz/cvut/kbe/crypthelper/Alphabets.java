@@ -32,63 +32,73 @@
  */
 package cz.cvut.kbe.crypthelper;
 
-import cz.cvut.kbe.crypthelper.ui.MainWindow;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author Radek Ježdík <jezdik.radek@gmail.com>
  */
-class MainMenuController {
+public class Alphabets {
 
-	private MainController controller;
+	private final static Map<String, CharEntry[]> map = new HashMap<>();
 
 
-	MainMenuController(MainController controller) {
-		this.controller = controller;
-		setupListeners();
+	static {
+		File dir = new File("alphabets");
+		File[] files = dir.listFiles();
+		if(files != null) {
+			for(File f : files) {
+				try {
+					BufferedReader bf = new BufferedReader(new FileReader(f));
+
+					String name = bf.readLine();
+
+					int count = 0;
+					Map<Character, Integer> mmap = new TreeMap<>();
+
+					String line;
+					while((line = bf.readLine()) != null) {
+						String[] strs = line.split(":");
+						char chr = strs[0].charAt(0);
+						int cnt = Integer.parseInt(strs[1]);
+
+						mmap.put(chr, cnt);
+						count += cnt;
+					}
+
+					CharEntry[] entries = new CharEntry[mmap.size()];
+					int i = 0;
+					for(Map.Entry<Character, Integer> entry : mmap.entrySet()) {
+						int cnt = entry.getValue();
+
+						long x = Math.round((cnt * 100 / (double) count) * 100);
+						double freq = x / 100d;
+
+						entries[i++] = new CharMap.CharEntry(entry.getKey(), cnt, freq);
+					}
+					map.put(name, entries);
+				} catch(Exception ex) {
+				}
+			}
+		}
 	}
 
 
-	private void setupListeners() {
-		final MainWindow window = controller.getWindow();
+	public static String[] getNames() {
+		return map.keySet().toArray(new String[map.size()]);
+	}
 
-		window.getNewTabMenuItem().addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.createTab();
-			}
+	public static CharEntry[] getEntriesFor(String name) {
+		return map.get(name);
 
-		});
-		window.getManualDecryptionMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String text = controller.getView().getInputText().getText();
-				new SubstitutionController(text);
-			}
-
-		});
-		window.getSplitMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.splitText();
-			}
-
-		});
-		window.getMergeMenuItem().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.mergeText();
-			}
-
-		});
 	}
 
 }
