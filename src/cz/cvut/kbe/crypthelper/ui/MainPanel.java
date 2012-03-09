@@ -32,8 +32,8 @@
  */
 package cz.cvut.kbe.crypthelper.ui;
 
-import cz.cvut.kbe.crypthelper.Alphabets;
 import cz.cvut.kbe.crypthelper.MainPanelController;
+import cz.cvut.kbe.crypthelper.helper.Alphabets;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

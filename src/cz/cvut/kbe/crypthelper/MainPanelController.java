@@ -33,6 +33,7 @@
 package cz.cvut.kbe.crypthelper;
 
 import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
+import cz.cvut.kbe.crypthelper.helper.Alphabets;
 import cz.cvut.kbe.crypthelper.ui.AlphabetEntryModel;
 import cz.cvut.kbe.crypthelper.ui.CharacterTableModel;
 import cz.cvut.kbe.crypthelper.ui.DefaultAlphabetEntryModel;

@@ -30,12 +30,14 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package cz.cvut.kbe.crypthelper;
+package cz.cvut.kbe.crypthelper.helper;
 
+import cz.cvut.kbe.crypthelper.CharMap;
 import cz.cvut.kbe.crypthelper.CharMap.CharEntry;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,7 +58,8 @@ public class Alphabets {
 		if(files != null) {
 			for(File f : files) {
 				try {
-					BufferedReader bf = new BufferedReader(new FileReader(f));
+					BufferedReader bf = new BufferedReader(
+							new InputStreamReader(new FileInputStream(f), "UTF8"));
 
 					String name = bf.readLine();
 
