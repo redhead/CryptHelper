@@ -32,14 +32,17 @@
  */
 package cz.cvut.kbe.crypthelper;
 
+import cz.cvut.kbe.crypthelper.helper.PolyalphabetSplitter;
 import cz.cvut.kbe.crypthelper.ui.MainPanel;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
-import java.awt.ScrollPane;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 /**
@@ -50,13 +53,10 @@ public class MainController {
 
 	private MainWindow window;
 
-	private int actual;
-
 
 	public MainController() {
 		window = new MainWindow();
 		new MainMenuController(this);
-
 	}
 
 
@@ -64,34 +64,34 @@ public class MainController {
 		window.setVisible(true);
 		window.setLocationRelativeTo(null);
 		window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		setupListeners();
+	}
+
+
+	private void setupListeners() {
+		window.getTabbedPane().addChangeListener(new TabChanged());
 	}
 
 
 	public void splitText() {
+		if(getView().getAlphabetSelect().getSelectedIndex() == 0) {
+			JOptionPane.showMessageDialog(window, "Nejdřív nastavte abecedu, kterou chcete použít.", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		String str = JOptionPane.showInputDialog(window, "Na kolik částí chcete text rozdělit?");
 		try {
 			int x = Integer.parseInt(str);
-			String[] splits = new String[x];
 
 			String text = getView().getInputText().getText();
-
-			for(int i = 0, j = 0; i < text.length(); i++) {
-				char c = Character.toUpperCase(text.charAt(i));
-				if(c >= 'A' && c <= 'Z') {
-					String splt = splits[j % x];
-					if(splt == null) splt = "";
-
-					splits[j % x] = splt + c;
-					j++;
-				}
-			}
+			String[] splits = PolyalphabetSplitter.split(text, x);
 
 			String title = getViewTitle();
 			for(int i = 0; i < x; i++) {
 				String tabTitle = title + "." + (i + 1);
 				MainPanel panel = createTab(tabTitle, true);
+
 				panel.getInputText().setText(splits[i]);
-				panel.getController().alphaOptionChanged((String) getView().getAlphabetSelect().getSelectedItem());
+				panel.getController().changeAlphabet((String) getView().getAlphabetSelect().getSelectedItem());
 				panel.getController().processText();
 			}
 		} catch(NumberFormatException ex) {
@@ -152,6 +152,21 @@ public class MainController {
 
 	public MainPanelController getViewController() {
 		return getView().getController();
+	}
+
+
+	private class TabChanged implements ChangeListener {
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			JTabbedPane pane = (JTabbedPane) e.getSource();
+			MainPanel panel = (MainPanel) pane.getSelectedComponent();
+
+			boolean mergable = !panel.getController().isUnmergable();
+			window.getMergeMenuItem().setEnabled(mergable);
+			window.getSplitMenuItem().setEnabled(mergable);
+		}
+
 	}
 
 }

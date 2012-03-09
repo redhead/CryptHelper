@@ -191,6 +191,11 @@ public class MainWindow extends javax.swing.JFrame {
 	}
 
 
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+
 	public final MainPanel createTab() {
 		return createTab(null, false);
 	}

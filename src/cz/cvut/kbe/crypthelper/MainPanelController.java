@@ -70,6 +70,8 @@ public class MainPanelController {
 		panel = new MainPanel(this);
 		tableModel = new CharacterTableModel();
 		panel.setTableModel(tableModel);
+		
+		panel.getAlphabetSelect().setEnabled(!unmergable);
 
 		setupListeners();
 	}
@@ -126,10 +128,11 @@ public class MainPanelController {
 	}
 
 
-	public void alphaOptionChanged(String name) {
+	public void changeAlphabet(String name) {
 		CharEntry[] entries = Alphabets.getEntriesFor(name);
 		alphaEntryModel = new DefaultAlphabetEntryModel(entries);
 
+		panel.getAlphabetSelect().setSelectedItem(name);
 		panel.setAlphaEntryModel(alphaEntryModel);
 		panel.getOffsetSlider().setVisible(entries != null);
 		panel.setChartData();
@@ -189,7 +192,7 @@ public class MainPanelController {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getStateChange() == ItemEvent.SELECTED) {
-				alphaOptionChanged((String) e.getItem());
+				changeAlphabet((String) e.getItem());
 			}
 		}
 
