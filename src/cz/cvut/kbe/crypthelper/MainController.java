@@ -35,11 +35,11 @@ package cz.cvut.kbe.crypthelper;
 import cz.cvut.kbe.crypthelper.helper.PolyalphabetSplitter;
 import cz.cvut.kbe.crypthelper.ui.MainPanel;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -112,7 +112,10 @@ public class MainController {
 			splits.add(text);
 		}
 
-		if(splits.isEmpty()) return;
+		if(splits.isEmpty()) {
+			System.out.println("Nebyly nalezeny žádné části textu ke sjednocení.");
+			return;
+		}
 
 		String merge = "";
 		for(int i = 0; i < splits.get(0).length(); i++) {
@@ -120,7 +123,16 @@ public class MainController {
 				merge += splits.get(j).charAt(i);
 			}
 		}
-		JOptionPane.showMessageDialog(window, merge);
+
+		JTextArea txtArea = new JTextArea(merge);
+		txtArea.setLineWrap(true);
+		txtArea.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+		txtArea.setEditable(false);
+
+		JScrollPane scrollPane = new JScrollPane(txtArea);
+		scrollPane.setPreferredSize(new Dimension(500, 150));
+
+		JOptionPane.showMessageDialog(window, scrollPane, "Sjednocený text", JOptionPane.PLAIN_MESSAGE);
 	}
 
 
