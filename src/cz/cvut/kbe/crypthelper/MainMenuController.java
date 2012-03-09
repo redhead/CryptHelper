@@ -89,6 +89,15 @@ class MainMenuController {
 			}
 
 		});
+		window.getNGramsMenuItem().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = controller.getView().getInputText().getText();
+				new NGramController(window, text);
+			}
+
+		});
 	}
 
 }

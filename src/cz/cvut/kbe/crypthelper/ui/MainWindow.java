@@ -97,6 +97,7 @@ public class MainWindow extends javax.swing.JFrame {
         newTabMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         manualDecryptionMenuItem = new javax.swing.JMenuItem();
+        nGramsMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         splitMenuItem = new javax.swing.JMenuItem();
         mergeMenuItem = new javax.swing.JMenuItem();
@@ -116,6 +117,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         manualDecryptionMenuItem.setText("Ruční dešifrování");
         jMenu1.add(manualDecryptionMenuItem);
+
+        nGramsMenuItem.setText("Najít N-Gramy");
+        jMenu1.add(nGramsMenuItem);
         jMenu1.add(jSeparator1);
 
         splitMenuItem.setText("Rozdělit text");
@@ -155,6 +159,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem manualDecryptionMenuItem;
     private javax.swing.JMenuItem mergeMenuItem;
+    private javax.swing.JMenuItem nGramsMenuItem;
     private javax.swing.JMenuItem newTabMenuItem;
     private javax.swing.JMenuItem splitMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
@@ -178,6 +183,11 @@ public class MainWindow extends javax.swing.JFrame {
 
 	public JMenuItem getMergeMenuItem() {
 		return mergeMenuItem;
+	}
+
+
+	public JMenuItem getNGramsMenuItem() {
+		return nGramsMenuItem;
 	}
 
 

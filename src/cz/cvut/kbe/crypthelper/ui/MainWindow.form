@@ -26,6 +26,11 @@
                 <Property name="text" type="java.lang.String" value="Ru&#x10d;n&#xed; de&#x161;ifrov&#xe1;n&#xed;"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="nGramsMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Naj&#xed;t N-Gramy"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="splitMenuItem">
