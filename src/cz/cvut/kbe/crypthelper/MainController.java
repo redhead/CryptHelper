@@ -35,7 +35,6 @@ package cz.cvut.kbe.crypthelper;
 import cz.cvut.kbe.crypthelper.helper.PolyalphabetSplitter;
 import cz.cvut.kbe.crypthelper.ui.MainPanel;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;

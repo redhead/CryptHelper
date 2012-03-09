@@ -35,7 +35,6 @@ package cz.cvut.kbe.crypthelper;
 import cz.cvut.kbe.crypthelper.ui.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 
 
 /**
