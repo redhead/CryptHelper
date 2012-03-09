@@ -221,8 +221,7 @@ public class MainWindow extends javax.swing.JFrame {
 				int result = JOptionPane.showConfirmDialog(MainWindow.this, "Opravdu chcete zavřít tuto záložku?", "Zavřít?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(result == JOptionPane.NO_OPTION) return;
 
-				int index = tabbedPane.indexOfComponent(content);
-				tabbedPane.removeTabAt(index);
+				tabbedPane.remove(content);
 				if(tabbedPane.getTabCount() == 0) {
 					tabbedPane.setVisible(false);
 				}
@@ -236,6 +235,10 @@ public class MainWindow extends javax.swing.JFrame {
 		tabbedPane.addTab(null, content);
 		tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, tab);
 		tabbedPane.setVisible(true);
+
+		if(!unmergable) {
+			tabbedPane.setSelectedComponent(content);
+		}
 
 		return content;
 	}

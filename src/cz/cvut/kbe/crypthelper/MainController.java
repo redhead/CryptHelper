@@ -170,12 +170,15 @@ public class MainController {
 
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			JTabbedPane pane = (JTabbedPane) e.getSource();
-			MainPanel panel = (MainPanel) pane.getSelectedComponent();
+			try {
+				JTabbedPane pane = (JTabbedPane) e.getSource();
+				MainPanel panel = (MainPanel) pane.getSelectedComponent();
 
-			boolean mergable = !panel.getController().isUnmergable();
-			window.getMergeMenuItem().setEnabled(mergable);
-			window.getSplitMenuItem().setEnabled(mergable);
+				boolean mergable = !panel.getController().isUnmergable();
+				window.getMergeMenuItem().setEnabled(mergable);
+				window.getSplitMenuItem().setEnabled(mergable);
+			} catch(Exception ex) {
+			}
 		}
 
 	}
